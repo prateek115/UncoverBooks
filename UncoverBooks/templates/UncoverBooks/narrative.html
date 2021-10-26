@@ -1,0 +1,29 @@
+{% extends 'UncoverBooks/basic.html' %}
+{% block body %}
+{% load static %}
+<br>
+<h4><span class="badge bg-secondary">Narrative</span></h4>
+<div class="container grid">
+    {% for i in product %}
+      <div class="card my-3 h-100">
+        <img src='\media\{{i.image}}' class="card-img-top" alt="..." >
+        <div class="card-body">
+          <h5 class="card-title" id = "namepr{{i.id}}">{{i.product_name}}</h5>
+          <h6 class="card-text"><b>Author:</b>{{i.author_name}}</h6>
+          <h6 class="card-text"><b>Genre:</b>{{i.genre}}</h6>
+          <p class="card-text"><b>Desc:</b>{{i.product_desc|slice:"0:50"}}...</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"><b>Rs.<span id="pricepr{{i.id}}">{{i.price}}</span></b></small>
+          <center><a href="product/{{i.id}}"> <button class="btn btn-outline-danger" id="qv{{i.id}}" type="button">Quick View</button></a></center>
+        </div>
+        <div class="d-grid gap-2 col-12 mx-auto my-2">
+          <span id="divpr{{i.id}}" class="divpr">
+          <button class="btn btn-warning cart" id="pr{{i.id}}" type="button" style="width:100%">Add to Cart</button>
+          </span>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

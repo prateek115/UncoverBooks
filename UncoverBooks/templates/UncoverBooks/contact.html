@@ -1,0 +1,16 @@
+{% extends 'UncoverBooks/basic.html' %}
+{% load static %}
+{% block body %}
+    <div class="container my-3">
+        <hr>
+        <center><h1>Contact</h1></center>
+        <hr>
+        <h3>How can we help you?</h3><br>
+        <form action="Contact" method="POST">
+            {% csrf_token %}
+            <textarea type="text" id="revert" name="desc" placeholder="Write us here...." style="border:groove 6px grey; height:50vh; width:100%"></textarea>
+           <center> <div class="d-grid gap-2 d-md-block">
+                <button class="btn btn-primary" type="submit">Post</button></center>
+        </form>
+    </div>
+{% endblock %}

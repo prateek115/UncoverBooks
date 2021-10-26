@@ -1,0 +1,37 @@
+{% extends 'UncoverBooks/basic.html' %}
+{% block body %}<body>
+{% load static %}
+<h2 class="my-3 mx-3">Search Results:</h2>
+<div class="my-3" style="margin-left:20%;">
+{% if product|length < 1 %}
+    <p>No result found</p>
+    <p>Your search query:<b>{{query}} </b>did not match any item.</p>
+    Suggestions:
+    <ul>
+        <li>Try different keywords.</li>
+    </ul>
+{% endif %}
+</div>
+<div class="container grid">
+{% for i in product %}
+      <div class="card my-3 h-100">
+        <img src='\media\{{i.image}}' class="card-img-top" alt="{{i.product_name}}" >
+        <div class="card-body">
+          <h5 class="card-title" id = "namepr{{i.id}}">{{i.product_name}}</h5>
+          <h6 class="card-text"><b>Author:</b>{{i.author_name}}</h6>
+          <h6 class="card-text"><b>Genre:</b>{{i.genre}}</h6>
+          <p class="card-text"><b>Desc:</b>{{i.product_desc|slice:"0:50"}}...</p>
+        </div>
+        <div class="card-footer">
+          <small ><b>Rs.<span id="pricepr{{i.id}}">{{i.price}}</span></b></small>
+          <center><a href="product/{{i.id}}"> <button class="btn btn-outline-danger" id="qv{{i.id}}" type="button">Quick View</button></a></center>
+        </div>
+          <span id="divpr{{i.id}}" class="divpr">
+            <button class="btn btn-warning cart" id="pr{{i.id}}" type="button" style="width:100%">Add to Cart</button>
+          </span>
+      </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+
