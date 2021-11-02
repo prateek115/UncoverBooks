@@ -1,0 +1,79 @@
+{% extends 'UncoverBooks/basic.html' %}
+{% block body %}
+{% load static %}
+<div class="container my-4">
+    <div class="row">
+    <div class="col-md-4">
+    <div class="row">
+       <img src="/media//{{product.image}}" >
+    </div>
+     <div class="row">
+       <div class="d-grid gap-2 d-md-block">
+          <center><button class="btn btn-outline-danger mx-3 my-3" type="button">Buy Now</button>
+          <span id="divpr{{i.id}}" class="divpr">
+            <button class="btn btn-outline-danger my-3 cart" id="pr{{i.id}}" type="button">Add to Cart</button></span></center>
+       </div>
+     </div>
+    </div>
+    <div class="col-md-8">
+        <h3 id = "namepr{{i.id}}">{{product.product_name}}</h3>
+        <h5 style="color:red"><b> Rs. <span id="pricepr{{i.id}}">{{product.price}}</span></b></h5>
+        <h5 class="card-text"><b>Author:</b>{{product.author_name}}</h5>
+        <h5 class="card-text"><b>Genre:</b>{{product.genre}}</h5>
+        <p>{{product.product_desc}}</p>
+    </div>
+        </div>
+</div>
+
+<div class="container">
+    <h2>Comments ({{comments.count}})</h2>
+    <div class="my-2">
+        {% if user.is_authenticated %}
+            <form method="Post" action="{% url 'postcomment' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="InputComment">Post Comment </label>
+                    <input type="text" class="form-control my-2" name="comment" placeholder="Enter comment here">
+                </div>
+            <input type="hidden" name="postId" value={{product.id}}>
+            <button type="submit" class="btn btn-primary my-2">Submit</button>
+        </form>
+        {% else %}
+            <p>Please Login to post a comment</p>
+        {% endif %}
+    </div>
+
+{% for com in comments %}
+    <div class="row my-3">
+        <div class="col-md-1">
+            <img src='{% static "UncoverBooks/user.jpg"%}' alt="user" height="90" width="90">
+        </div>
+        <div class="col-md-11"><b>{{com.user.username}}</b>
+            <div><small class="text-muted">{{com.time}}</small></div>
+            <div>{{com.comment}}</div>
+    </div>
+{% endfor %}
+</div>
+<br>
+<h3>Recommended similar items:</h3>
+<div class="container grid">
+{% for i in recommendation %}
+  <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
+    <div class="col">
+      <div class="card" style="width: 18rem; height:30rem;">
+        <img src='\media\{{i.image}}' class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{i.product_name}}</h5>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Rs.{{i.price}}</small>
+          <center><a href="{{i.id}}"> <button class="btn btn-outline-danger" id="qv{{i.id}}" type="button">Quick View</button></a></center>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+{% endblock %}
+
