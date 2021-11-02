@@ -1,0 +1,6 @@
+.backgroundImage{
+    background:url('../unsplash_about.jpg');
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
